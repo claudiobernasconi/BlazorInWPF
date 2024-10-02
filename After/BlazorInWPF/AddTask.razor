@@ -1,0 +1,17 @@
+﻿@using Microsoft.JSInterop
+@inject IJSRuntime JS
+
+<div style="display: flex; margin-left: 20px">
+    <input type="text" @bind-value="Text" />
+    <button class="btn btn-outline-primary" style="margin-left: 10px" @onclick="OnAddTask">Add Task</button>
+</div>
+
+@code {
+    public required string Text { get; set; }
+
+    private async Task OnAddTask()
+    {
+        await JS.InvokeVoidAsync("notifyWpfApp", "AddTask", Text);
+        Text = "";
+    }
+}
